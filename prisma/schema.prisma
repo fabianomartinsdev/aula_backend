@@ -54,8 +54,11 @@ model Author {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  user      User?    @relation(fields: [userId], references: [id])
-  userId    String?
+
+  books Book[]
+
+  user   User?   @relation(fields: [userId], references: [id])
+  userId String?
 }
 
 model Book {
@@ -70,6 +73,12 @@ model Book {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  category  BookCategory[]
+  orderItem OrderItem[]
+
+  author   Author? @relation(fields: [authorId], references: [id])
+  authorId String?
 }
 
 model Category {
@@ -78,8 +87,11 @@ model Category {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  user      User?    @relation(fields: [userId], references: [id])
-  userId    String?
+
+  bookCategory BookCategory[]
+
+  user   User?   @relation(fields: [userId], references: [id])
+  userId String?
 }
 
 model BookCategory {
@@ -87,6 +99,11 @@ model BookCategory {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  book       Book?     @relation(fields: [bookId], references: [id])
+  bookId     String?
+  category   Category? @relation(fields: [categoryId], references: [id])
+  categoryId String?
 }
 
 model Order {
@@ -96,8 +113,10 @@ model Order {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  user      User?    @relation(fields: [userId], references: [id])
-  userId    String?
+
+  items  OrderItem[]
+  user   User?       @relation(fields: [userId], references: [id])
+  userId String?
 }
 
 model OrderItem {
@@ -107,4 +126,9 @@ model OrderItem {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  book    Book?   @relation(fields: [bookId], references: [id])
+  bookId  String?
+  order   Order?  @relation(fields: [orderId], references: [id])
+  orderId String?
 }
