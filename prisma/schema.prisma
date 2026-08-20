@@ -38,6 +38,7 @@ model User {
   email     String   @unique
   telephone String   @unique
   role      UserRole
+  password  String
 
   authors    Author[]
   categories Category[]
